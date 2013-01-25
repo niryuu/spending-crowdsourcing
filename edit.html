@@ -2,7 +2,7 @@
 <!-- saved from url=(0055)http://twitter.github.com/bootstrap/examples/fluid.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
-    <title>Bootstrap, from Twitter</title>
+    <title>横浜市の予算を入力しよう</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -19,6 +19,7 @@
       }
     </style>
     <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="./css/imgareaselect-default.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -28,9 +29,33 @@
     <!-- Fav and touch icons -->
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-114-precomposed.png">
-      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-72-precomposed.png">
-                    <link rel="apple-touch-icon-precomposed" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-57-precomposed.png">
-                                   <link rel="shortcut icon" href="http://twitter.github.com/bootstrap/assets/ico/favicon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="http://twitter.github.com/bootstrap/assets/ico/favicon.png">
+    <script type="text/javascript">
+    var selx, sely, selwidth, selheight, image_src;
+    function drawCanvas() {
+      var canvas = document.getElementById('srcimage');
+      var context = canvas.getContext('2d');
+      context.save();
+      context.translate(canvas.width * 0.5, canvas.height * 0.5);
+      canvas.width = image.width;
+      canvas.height = image.height;
+      var width = image.width;
+      var height = image.height;
+      var x = 0;
+      var y = 0;
+      context.drawImage(image, x, y, width, height);
+      context.restore();
+    }
+    function drawRect(x, y, width, height) {
+      var canvas = document.getElementById('srcimage');
+      var context = canvas.getContext('2d');
+      context.fillStyle = 'rgb(192, 80, 77)';
+      context.globalAlpha = 0.5;
+      context.fillRect(x, y, width, height)
+    }
+    </script>
   </head>
 
   <body>
@@ -43,17 +68,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="http://twitter.github.com/bootstrap/examples/fluid.html#">Project name</a>
-          <div class="nav-collapse collapse">
-            <p class="navbar-text pull-right">
-              Logged in as <a href="http://twitter.github.com/bootstrap/examples/fluid.html#" class="navbar-link">Username</a>
-            </p>
-            <ul class="nav">
-              <li class="active"><a href="http://twitter.github.com/bootstrap/examples/fluid.html#">Home</a></li>
-              <li><a href="http://twitter.github.com/bootstrap/examples/fluid.html#about">About</a></li>
-              <li><a href="http://twitter.github.com/bootstrap/examples/fluid.html#contact">Contact</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
+          <a class="brand" href="http://twitter.github.com/bootstrap/examples/fluid.html#">横浜市の予算を入力しよう</a>
         </div>
       </div>
     </div>
@@ -62,31 +77,22 @@
       <div class="row-fluid">
         <div class="span3">
           <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">Sidebar</li>
-              <li class="active"><a href="http://twitter.github.com/bootstrap/examples/fluid.html#">Link</a></li>
-              <li><a href="http://twitter.github.com/bootstrap/examples/fluid.html#">Link</a></li>
-              <li><a href="http://twitter.github.com/bootstrap/examples/fluid.html#">Link</a></li>
-              <li><a href="http://twitter.github.com/bootstrap/examples/fluid.html#">Link</a></li>
-              <li class="nav-header">Sidebar</li>
-              <li><a href="http://twitter.github.com/bootstrap/examples/fluid.html#">Link</a></li>
-              <li><a href="http://twitter.github.com/bootstrap/examples/fluid.html#">Link</a></li>
-              <li><a href="http://twitter.github.com/bootstrap/examples/fluid.html#">Link</a></li>
-              <li><a href="http://twitter.github.com/bootstrap/examples/fluid.html#">Link</a></li>
-              <li><a href="http://twitter.github.com/bootstrap/examples/fluid.html#">Link</a></li>
-              <li><a href="http://twitter.github.com/bootstrap/examples/fluid.html#">Link</a></li>
-              <li class="nav-header">Sidebar</li>
-              <li><a href="http://twitter.github.com/bootstrap/examples/fluid.html#">Link</a></li>
-              <li><a href="http://twitter.github.com/bootstrap/examples/fluid.html#">Link</a></li>
-              <li><a href="http://twitter.github.com/bootstrap/examples/fluid.html#">Link</a></li>
+            <ul class="nav nav-list" id="mokuji">
+              <li class="nav-header">部局別目次一覧</li>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span9">
           <div class="hero-unit">
-            <h1>テスト</h1>
-            <p><img src=""></p>
-            <p><a class="btn btn-primary btn-large">Learn more »</a></p>
+            <h1 id="bukyoku_name"></h1>
+            <fieldset>
+              <label for="name">事業名</label>
+              <input type="text" name="name" id="name">
+              <label for="yosan">予算金額</label>
+              <input type="text" name="yosan" id="yosan">
+            </fieldset>
+            <p><canvas id="srcimage"></canvas></p>
+            <p><a class="btn btn-primary btn-large" id="send_yosan">送信</a></p>
           </div><!--/row-->
         </div><!--/span-->
       </div><!--/row-->
@@ -104,6 +110,75 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/jquery.imgareaselect.min.js"></script>
+    <script src="./js/parse-1.1.15.min.js"></script>
+    <script type="text/javascript">
+    var image = new Image();
+    Parse.initialize("PPmmxM6dCntNhZJQReXuCNssBBoQDkmQmp0ffPc9", "xo03SIsCXMrKANHmY41HwpRH5cW0W0MLtEEIwRmx");
+    $('#srcimage').imgAreaSelect({ handles: true, onSelectChange:function(img, selection) {
+        selx = selection.x1;
+        sely = selection.y1;
+        selwidth = selection.width;
+        selheight = selection.height;
+      } 
+    });
+    $('#send_yosan').click(function() {
+      if(selx != undefined && $('#name').val() != '' && $('#yosan').val() != '') {
+        var YosanData = Parse.Object.extend('yosan_data');
+        var yosanData = new YosanData();
+        yosanData.save(
+          {bukyoku_id:bukyoku_id,x:selx, y:sely, width:selwidth, height:selheight, name:$('#name').val(), yosan:parseInt($('#yosan').val(),10)},
+          {
+            success:function(yosanData){location.reload();},
+            error:function(yosanData, error){console.log(error);}
+          });
+        }
+      }
+    );
+    var bukyoku_id = parseInt(window.location.href.split('=')[1], 10);
+    if(bukyoku_id == undefined) bukyoku_id = 1;
+    var get_yosan = function() {
+      var YosanData = Parse.Object.extend('yosan_data');
+      var query = new Parse.Query(YosanData);
+      query.equalTo("bukyoku_id", bukyoku_id);
+      query.find({
+        success: function(results) {
+          for(var i = 0; i < results.length; i++) {
+            var result = results[i];
+            drawRect(result.get('x'), result.get('y'), result.get('width'), result.get('height'));
+          }
+        },
+        error: function(error) {
+        }
+      });
+    };
+    var Bukyoku = Parse.Object.extend('bukyoku');
+    var query = new Parse.Query(Bukyoku);
+    query.equalTo("bukyoku_id", bukyoku_id);
+    query.find({
+      success: function(results) {
+        $('#bukyoku_name').text(results[0].get('name'));
+        image.src = './images/' + results[0].get('photo');
+        image.onload = function() {
+          drawCanvas();
+          get_yosan();
+        };
+      },
+      error: function(error) {
+      }
+    });
+    query = new Parse.Query(Bukyoku);
+    query.find({
+      success: function(results) {
+        for(var i = 0; i < results.length; i++) {
+          $('#mokuji').append('<li><a href="./index.html?id=' + results[i].get('bukyoku_id') + '">' + results[i].get('name') + '</a></li>');
+        }
+      },
+      error: function(error) {
+      }
+    });
+    
+    </script>
 
   
 
