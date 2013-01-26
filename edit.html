@@ -92,7 +92,12 @@
               <input type="text" name="yosan" id="yosan">
             </fieldset>
             <p><canvas id="srcimage"></canvas></p>
-            <p><a class="btn btn-primary btn-large" id="send_yosan">送信</a></p>
+            <p><a class="btn btn-primary btn-large" id="send_yosan">データ登録</a></p>
+            <fieldset>
+              <label for="bukyoku_form">部局名</label>
+              <input type="text" name="name" id="bukyoku_form">
+            </fieldset>
+            <p><a class="btn btn-primary btn-large" id="send_bukyoku">部局名変更</a></p>
           </div><!--/row-->
         </div><!--/span-->
       </div><!--/row-->
@@ -135,7 +140,9 @@
         }
       }
     );
+
     var bukyoku_id = parseInt(window.location.href.split('=')[1], 10);
+    var bukyoku;
     if(bukyoku_id == undefined) bukyoku_id = 1;
     var get_yosan = function() {
       var YosanData = Parse.Object.extend('yosan_data');
@@ -157,6 +164,7 @@
     query.equalTo("bukyoku_id", bukyoku_id);
     query.find({
       success: function(results) {
+        bukyoku = results[0];
         $('#bukyoku_name').text(results[0].get('name'));
         image.src = './images/' + results[0].get('photo');
         image.onload = function() {
@@ -179,6 +187,13 @@
       }
     });
     
+    $('#send_bukyoku').click(function() {
+      if($('#bukyoku_form').val() != '') {
+        bukyoku.set('name', $('#bukyoku_form').val());
+        bukyoku.save();
+        location.reload();
+      }
+    });
     </script>
 
   
