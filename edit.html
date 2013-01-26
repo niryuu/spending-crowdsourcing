@@ -168,6 +168,7 @@
       }
     });
     query = new Parse.Query(Bukyoku);
+    query.limit(1000);
     query.find({
       success: function(results) {
         for(var i = 0; i < results.length; i++) {
